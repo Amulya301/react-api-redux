@@ -9,18 +9,17 @@ export const fetchResponse = createAsyncThunk(
   }
 );
 
-const initialState = {
-  todos: [],
-  error: false,
-};
-
 const todoSlice = createSlice({
   name: "todos",
-  initialState,
+  initialState: {
+    data: [],
+    error:false,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchResponse.fulfilled, (state, action) => {
-      state.todos = action.payload;
+      state.data = action.payload;
+      // console.log(action.payload);
     });
     builder.addCase(fetchResponse.rejected, (state) => {
       state.error = true;

@@ -6,7 +6,7 @@ import Pagination from "../Pagination/Pagination";
 
 const FetchData = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todo.todos);
+  const todos = useSelector((state) => state.todo.data);
   const error = useSelector((state) => state.todo.error);
 
   useEffect(() => {
