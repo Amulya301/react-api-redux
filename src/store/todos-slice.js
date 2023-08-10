@@ -4,7 +4,7 @@ import api from "../customApi/customApi";
 export const fetchResponse = createAsyncThunk(
   "todos/fetchResponse",
   async () => {
-    const response = await api.get("/todos").catch((err) => console.log(err));
+    const response = await api.get("/todos").catch((err) => err);
     return response.data;
   }
 );

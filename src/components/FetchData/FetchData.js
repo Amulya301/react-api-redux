@@ -24,7 +24,7 @@ const FetchData = () => {
   };
 
   if (error) {
-    return <span>Unable to fetch data</span>;
+    return <span data-testid="error">Unable to fetch data</span>;
   }
   return (
     <div>
@@ -52,6 +52,7 @@ const FetchData = () => {
         </tbody>
       </table>
       <Pagination
+        data-testid="pagination"
         todosPerPage={todosPerPage}
         totalTodosQuantity={todos.length}
         onChangePage={currentPageHandler}

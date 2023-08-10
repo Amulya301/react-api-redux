@@ -13,7 +13,7 @@ const Pagination = ({ todosPerPage, totalTodosQuantity, onChangePage }) => {
       <ul>
         {pagenos.map((page) => {
             return (
-                <li key={page}>
+                <li key={page} >
                     <button onClick={() => onChangePage(page)}>
                         {page}
                     </button>

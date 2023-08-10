@@ -1,33 +1,28 @@
 import FetchData from "../FetchData/FetchData";
-import { render as rtRender,screen } from "@testing-library/react";
+import {render as rtRender, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../store/store";
 
-const render = component => rtRender(
+const render = (component) =>
+  rtRender(<Provider store={store}>{component}</Provider>);
 
-    <Provider store={store}>
-    {component}
-    </Provider>
+describe("FetchComponent", () => {
+  afterEach(() => jest.clearAllMocks());
 
-)
+  test("should fetch todos", async () => {
+    render(<FetchData />);
 
-describe('FetchComponent', () => {
-    afterEach(() => jest.clearAllMocks());
+    const mockdata = await screen.findAllByTestId("table-items");
+    expect(mockdata.length).toEqual(20);
+  });
 
-    test('should fetch todos', async () => {
+  test("should display error if failed", async () => {
+    store.dispatch({ type: "todos/fetchResponse/rejected" });
 
-        render(<FetchData />);
+    render(<FetchData />);
 
-        const mockdata = await screen.findAllByTestId('table-items')
-        expect(mockdata.length).toEqual(20);
-       
-    })
-
-    test('should display error if failed', async () => {
-        render(<FetchData />);
-        const error = 'Unable to fetch data'
-        expect(screen.queryByText(error)).not.toBeInTheDocument();
-    })
-
-
-})
+    const errorElement = screen.queryByTestId("error");
+    expect(errorElement).toBeInTheDocument();
+    expect(errorElement.textContent).toBe("Unable to fetch data");
+  });
+});
